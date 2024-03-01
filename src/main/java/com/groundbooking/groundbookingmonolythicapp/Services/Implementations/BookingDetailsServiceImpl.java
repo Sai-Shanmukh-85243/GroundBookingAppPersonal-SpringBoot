@@ -78,4 +78,14 @@ public class BookingDetailsServiceImpl implements BookingDetailsService {
         System.out.println("In getAllBookingByUsername service imlementation:"+username);
         return bookingDetailsRepository.findAllByUsername(username);
     }
+
+    @Override
+    public List<BookingDetails> getAllBookings() {
+        return bookingDetailsRepository.findAll();
+    }
+
+    @Override
+    public void deleteBookings(BookingDetails bookingDetails) {
+        bookingDetailsRepository.deleteById(bookingDetails.getBookingDetailsId());
+    }
 }
