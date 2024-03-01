@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class BookingDetailsServiceImpl implements BookingDetailsService {
@@ -75,7 +76,7 @@ public class BookingDetailsServiceImpl implements BookingDetailsService {
 
     @Override
     public List<BookingDetails> getAllBookingByUsername(String username) {
-        System.out.println("In getAllBookingByUsername service imlementation:"+username);
+        //System.out.println("In getAllBookingByUsername service imlementation:"+username);
         return bookingDetailsRepository.findAllByUsername(username);
     }
 
@@ -87,5 +88,10 @@ public class BookingDetailsServiceImpl implements BookingDetailsService {
     @Override
     public void deleteBookings(BookingDetails bookingDetails) {
         bookingDetailsRepository.deleteById(bookingDetails.getBookingDetailsId());
+    }
+
+    @Override
+    public List<BookingDetails> getBookingByGroundDetails(UUID groundUUID){
+        return bookingDetailsRepository.findAllByGroundDetailsId(groundUUID);
     }
 }

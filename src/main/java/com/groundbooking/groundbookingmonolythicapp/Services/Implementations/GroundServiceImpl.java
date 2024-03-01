@@ -7,9 +7,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.groundbooking.groundbookingmonolythicapp.Entities.BookingDetails;
 import com.groundbooking.groundbookingmonolythicapp.Entities.GroundDetails;
 import com.groundbooking.groundbookingmonolythicapp.ExceptionHandling.CustomExceptions.RecordAlreadyExistsException;
 import com.groundbooking.groundbookingmonolythicapp.Respositories.GroundRespository;
+import com.groundbooking.groundbookingmonolythicapp.Services.ActiveBookingOfDeletedGroundService;
+import com.groundbooking.groundbookingmonolythicapp.Services.BookingDetailsService;
 import com.groundbooking.groundbookingmonolythicapp.Services.GroundService;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,8 @@ import javax.sql.rowset.serial.SerialBlob;
 public class GroundServiceImpl implements GroundService {
 	@Autowired
 	private GroundRespository groundRespository;
+	@Autowired
+	private ActiveBookingOfDeletedGroundService activeBookingOfDeletedGroundService;
 
 	@Override
 	public List<GroundDetails> getAllGrounds() {
@@ -98,6 +103,7 @@ public class GroundServiceImpl implements GroundService {
 	@Override
 	public GroundDetails deleteGround(UUID id) {
 		// TODO Auto-generated method stub
+		activeBookingOfDeletedGroundService.addActiveBookingOfDeletedGround(groundRespository.findById(id).orElse(null));
 		GroundDetails ground=getGroundById(id);
 		groundRespository.deleteById(id);
 		return ground;

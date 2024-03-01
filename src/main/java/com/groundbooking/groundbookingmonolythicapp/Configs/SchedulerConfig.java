@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,10 +24,10 @@ public class SchedulerConfig {
     @Autowired
     private ExpiredGroundBookingsService expiredGroundBookingsService;
 
-    //@Scheduled(cron ="0 0 23 * * *") // sec min hours(clock hours) date month dayofweek   //runs every day at 11 PM
+    //@Scheduled(cron ="0 0 23 * * *",zone = "Asia/Kolkata") // sec min hours(clock hours) date month dayofweek   //runs every day at 11 PM
     @Scheduled(cron = "0 */5 * * * *")  //run for every 5 min
     public void DeleteExpiredGroundBookingAfterStoringARecord(){
-        System.out.println("In Scheduled task ");
+        System.out.println("In Scheduled task at "+ LocalDateTime.now().atZone(ZoneId.of("Asia/Kolkata")));
         List<BookingDetails> allGroundBooking = bookingDetailsService.getAllBookings();
         LocalDate todayDate = LocalDate.parse(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         List<ExpiredGroundBookings> expiredGroundBookings = new ArrayList<ExpiredGroundBookings>();
