@@ -24,8 +24,8 @@ public class SchedulerConfig {
     @Autowired
     private ExpiredGroundBookingsService expiredGroundBookingsService;
 
-    //@Scheduled(cron ="0 0 23 * * *",zone = "Asia/Kolkata") // sec min hours(clock hours) date month dayofweek   //runs every day at 11 PM
-    @Scheduled(cron = "0 */5 * * * *")  //run for every 5 min
+    @Scheduled(cron ="0 0 23 * * *",zone = "Asia/Kolkata") // sec min hours(clock hours) date month dayofweek   //runs every day at 11 PM
+    //@Scheduled(cron = "0 */5 * * * *")  //run for every 5 min
     public void DeleteExpiredGroundBookingAfterStoringARecord(){
         System.out.println("In Scheduled task at "+ LocalDateTime.now().atZone(ZoneId.of("Asia/Kolkata")));
         List<BookingDetails> allGroundBooking = bookingDetailsService.getAllBookings();

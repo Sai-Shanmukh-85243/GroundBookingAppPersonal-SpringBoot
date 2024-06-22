@@ -1,16 +1,13 @@
 package com.groundbooking.groundbookingmonolythicapp.ExceptionHandling;
 
-import com.groundbooking.groundbookingmonolythicapp.ExceptionHandling.CustomExceptions.BookingAlreadyExists;
-import com.groundbooking.groundbookingmonolythicapp.ExceptionHandling.CustomExceptions.DataNotFound;
-import com.groundbooking.groundbookingmonolythicapp.ExceptionHandling.CustomExceptions.LoginExpiredException;
-import com.groundbooking.groundbookingmonolythicapp.ExceptionHandling.CustomExceptions.RecordAlreadyExistsException;
+import com.groundbooking.groundbookingmonolythicapp.ExceptionHandling.CustomExceptions.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -22,11 +19,10 @@ import static java.lang.String.format;
 public class GlobalExceptionHandling{
 
     @ExceptionHandler(BadCredentialsException.class)
-    public String BadCredentialsHandler() {
-        return "Credentials Invalid !!";
+    public ResponseEntity<ExceptionResponse> BadCredentialsHandler(BadCredentialsException ex) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage(),false);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionResponse);
     }
-
-
 
     @ExceptionHandler(DataNotFound.class)
     public ResponseEntity<ExceptionResponse> DataNofFound(DataNotFound ex){
