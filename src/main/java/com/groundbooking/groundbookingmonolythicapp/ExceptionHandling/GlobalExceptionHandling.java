@@ -50,7 +50,7 @@ public class GlobalExceptionHandling{
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ExceptionResponse> UserNotFoundHandler(RuntimeException ex){
-        String message = format("User not found");
+        String message = ex.getMessage();
         ExceptionResponse exceptionResponse = new ExceptionResponse(message, false);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionResponse);
     }
