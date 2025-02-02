@@ -34,3 +34,8 @@ build/
 
 ### Ignoring temp files ###
 #[T]emp
+/.vs/groundbookingmonolythicapp/v17/.wsuo
+/.vs/groundbookingmonolythicapp/FileContentIndex/1dd77958-f340-4670-b9a5-85f11e04b4a3.vsidx
+/.vs/groundbookingmonolythicapp/FileContentIndex/6207f54d-711d-431e-8fbc-b2f358467cf8.vsidx
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json
